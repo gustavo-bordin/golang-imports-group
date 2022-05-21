@@ -1,0 +1,46 @@
+{
+ 	"name": "golang-imports-group",
+	"displayName": "golang-imports-group",
+	"description": "Order your imports by grouping them in builtin imports, third-party and local.",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.63.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+        "onCommand:golang-imports-group.orderImportsSelectedFile",
+        "onCommand:golang-imports-group.orderImportsAllFiles"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "golang-imports-group.orderImportsSelectedFile",
+				"title": "Go - Order imports from selected file"
+			},
+			{
+				"command": "golang-imports-group.orderImportsAllFiles",
+				"title": "Go - Order imports from all files"
+			}
+		]
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "yarn run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+        "@types/vscode": "^1.67.0",
+        "@types/glob": "^7.2.0",
+        "@types/mocha": "^9.1.1",
+        "@types/node": "14.x",
+        "eslint": "^8.14.0",
+        "glob": "^8.0.1",
+        "mocha": "^9.2.2",
+        "typescript": "^4.6.4",
+        "@vscode/test-electron": "^2.1.3"
+    }
+
+}
