@@ -11,18 +11,30 @@
 	],
 	"activationEvents": [
         "onCommand:golang-imports-group.orderImportsSelectedFile",
-        "onCommand:golang-imports-group.orderImportsAllFiles"
+		"onSave:golang-imports-group.orderImportsSelectedFile"
+		
 	],
 	"main": "./extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "GoImportsGroup",
+			"properties": {
+				"goImportsGroup.importsOrder": {
+					"type": "string",
+					"default": "B/T/L",
+					"enum": ["B/T/L", "B/L/T"],
+					"enumDescriptions": [
+						"Formats imports as Builtin, then ThirdParty and then Local.",
+						"Formats imports as Builtin, then Local and then ThirdParty."
+					],
+					"description": "B -> Builtin imports, T -> Third Party imports, L -> Local imports"
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "golang-imports-group.orderImportsSelectedFile",
 				"title": "Go - Order imports from selected file"
-			},
-			{
-				"command": "golang-imports-group.orderImportsAllFiles",
-				"title": "Go - Order imports from all files"
 			}
 		]
 	},

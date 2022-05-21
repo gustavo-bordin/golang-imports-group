@@ -7,6 +7,9 @@ const BUILTIN_TYPE = "builtin"
 const THIRD_PARTY_TYPE = "thirdParty"
 const LOCAL_TYPE = "local"
 
+const BLT = "B/L/T"
+const BTL = "B/T/L"
+
 function getImports(fileContent) {
     try {
         let importsRegex = new RegExp("(?<=import \\(\n).*?(?=\\))", "s")
@@ -37,19 +40,39 @@ function getImportType(import_) {
     }
 }
 
-function getImportGroups(importsList) {
-    let importGroups = {
-        [BUILTIN_TYPE]: [],
-        [THIRD_PARTY_TYPE]: [],
-        [LOCAL_TYPE]: []
+function getImportsOrder() {
+    let extSettings = vscode.workspace.getConfiguration('goImportsGroup')
+    let importOrder = extSettings.get("importsOrder")
+    let importGroups = {}
+
+    if(importOrder == BTL) {
+        importGroups[BUILTIN_TYPE] = []
+        importGroups[THIRD_PARTY_TYPE] = []
+        importGroups[LOCAL_TYPE] = []
+    } else if(importOrder == BLT) {
+        importGroups[BUILTIN_TYPE] = []
+        importGroups[LOCAL_TYPE] = []
+        importGroups[THIRD_PARTY_TYPE] = []
+    }  else {
+        importGroups[BUILTIN_TYPE] = []
+        importGroups[THIRD_PARTY_TYPE] = []
+        importGroups[LOCAL_TYPE] = []
     }
+
+
+    return importGroups
+}
+
+function getImportGroups(importsList) {
+    let importsGroup = getImportsOrder()
+    
 
     importsList.filter(n => n).forEach(import_ => {
         let importType = getImportType(import_)
-        importGroups[importType].push(import_)
+        importsGroup[importType].push(import_)
     })
 
-    return importGroups
+    return importsGroup
 }
 
 function formatImport(activeEditor) {

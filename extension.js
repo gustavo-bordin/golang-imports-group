@@ -17,10 +17,7 @@ function activate(context) {
 		fromAllFilesName, formatImportsFromAllFiles
 	);
 
-	console.log("came here")
 	context.subscriptions.push(fromSelectedFileCmd, fromAllFilesCmd);
-	console.log("came here2")
-
 }
 
 // this method is called when your extension is deactivated

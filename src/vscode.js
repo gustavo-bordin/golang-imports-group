@@ -45,7 +45,6 @@ function saveImportsGroup(importsGroup, importRanges, activeEditor) {
     );
 
     let importsParsed = importGroupsToString(importsGroup)
-    console.log("imports parsed", importsParsed)
     let documentUri = activeEditor.document.uri
     
     edit.replace(documentUri, range, importsParsed);
